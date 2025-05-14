@@ -1,0 +1,87 @@
+<div class="leftside-menu">
+    <!-- LOGO -->
+    <a href="{{ url_for('main.home') }}" class="logo text-center logo-light">
+        <span class="logo-lg">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" height="64">
+        </span>
+        <span class="logo-sm">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" height="64">
+        </span>
+    </a>
+
+    <!-- LOGO -->
+    <a href="{{ url_for('main.home') }}" class="logo text-center logo-dark">
+        <span class="logo-lg">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" height="16">
+        </span>
+        <span class="logo-sm">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" height="16">
+        </span>
+    </a>
+
+    <div class="h-100" id="leftside-menu-container" data-simplebar="">
+        <!-- Sidemenu -->
+        <ul class="side-nav">
+            <li class="side-nav-item">
+                <a href="{{ url_for('main.home') }}" class="side-nav-link">
+                    <i class="uil-home-alt"></i>
+                    <span>Trang chủ</span>
+                </a>
+            </li>
+            <li class="side-nav-title side-nav-item">Quản lý</li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarEmployee" aria-expanded="false" aria-controls="sidebarEmployee" class="side-nav-link">
+                    <i class="uil-briefcase"></i>
+                    <span>Nhân viên</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarEmployee">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ url_for('employee.employee_list') }}">Danh sách nhân viên</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('employee.add_or_edit_employee') }}">Thêm nhân viên</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+            <!-- Ca làm việc -->
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+                    <i class="uil-clipboard-alt"></i>
+                    <span>Ca làm việc</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarTasks">
+                    <ul class="side-nav-second-level">
+
+                        <li>
+                            <a href="{{ url_for('shift.shift_list') }}">Danh sách ca làm việc</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('shift.add_shift') }}">Thêm ca làm việc</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarSalary" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+                    <i class="uil-clipboard-alt"></i>
+                    <span>Lương</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarSalary">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ url_for('employee.employee_salary') }}">Thống kê lương</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}Chi Tiết Nhân Viên{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Thông Tin Nhân Viên</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Tên Nhân Viên: {{ employee.full_name }}</h5>
+            <p><strong>Lương Cơ Bản:</strong> {{ employee.salary }} VND / Ca</p>
+        </div>
+    </div>
+
+    <h2>Ca Chấm Công Chưa Thanh Toán</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Ca</th>
+                <th>Giờ Vào</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendance in employee.attendance_details %}
+                <tr>
+                    <td>{{ attendance.attendance_id }}</td>
+                    <td>{{ attendance.shift_name }}</td>
+                    <td>{{ attendance.check_in_time }}</td>
+                    <td>{{ attendance.status}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Tổng Tiền Thanh Toán: {{ employee.total_payment }} VND</h3>
+
+    <form method="POST" action="{{ url_for('employee.pay_salary', employee_id=employee.employee_id) }}">
+        <button type="submit" class="btn btn-success">Thanh Toán</button>
+    </form>
+</div>
+{% endblock %}

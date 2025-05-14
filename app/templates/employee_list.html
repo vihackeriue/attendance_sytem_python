@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block title %}Danh Sách Nhân Viên{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-2">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Danh sách nhân sự</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <a href="{{ url_for('employee.add_or_edit_employee') }}" class="btn btn-primary mb-2"><i class="mdi mdi-plus-circle me-2"></i> Thêm nhân viên mới</a>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-centered display table-list" style="width: 100%">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="d-none d-xl-table-cell">STT</th>
+                                    <th class="d-none d-xl-table-cell">Tên Đăng nhập</th>
+                                    <th class="d-none d-md-table-cell">Họ và tên</th>
+                                    <th class="d-none d-md-table-cell">Email</th>
+                                    <th class="d-none d-md-table-cell">Số điện thoại</th>
+                                    <th class="d-none d-md-table-cell">Lương</th>
+                                    <th class="d-none d-md-table-cell">Trạng thái</th>
+                                    <th style="width: 85px;">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>
+                                        <p class="m-0 d-inline-block align-middle font-16">
+                                            <a href="{{ url_for('shift.employee_history', user_id=user[0]) }}" class="text-body">{{ user[1] }}</a>
+                                        </p>
+                                    </td>
+                                    <td>{{ user[2] }}</td>
+                                    <td>{{ user[3] }}</td>
+                                    <td>{{ user[4] }}</td>
+                                    <td>
+                                        {{user[5]}}
+                                    </td>
+                                    <td>
+                                        {% if user[6] == 1 %}
+                                        <div class="text-success">Đang sử dụng</div>
+                                        {% else %}
+                                        <div class="text-danger">Đang khóa</div>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="table-action">
+                                        <a href="{{ url_for('employee.add_or_edit_employee', user_id=user[0]) }}" class="action-icon">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                        <a href="{{ url_for('employee.lock_employee', user_id=user[0]) }}" class="action-icon">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end card-body-->
+            </div>
+            <!-- end card-->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+{% endblock %}

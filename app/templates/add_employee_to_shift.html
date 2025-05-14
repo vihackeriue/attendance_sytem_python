@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}Thêm Nhân Viên Vào Ca Làm Việc{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-2">
+    <h2>Thêm Nhân Viên Cho Ca Làm Việc</h2>
+
+    <form method="POST" action="{{ url_for('shift.assign_employee_to_shift', shift_id=shift_id) }}">
+        <div class="mb-3">
+            <label for="employee" class="form-label">Chọn Nhân Viên</label>
+            <select class="form-select" name="user_id">
+                {% for employee in employees %}
+                    <option value="{{ employee[0] }}">{{ employee[2] }} ({{ employee[1] }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thêm Nhân Viên Vào</button>
+    </form>
+
+    <h2 class="mt-4">Danh Sách Nhân Viên Trong Ca Làm Việc</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên Đăng Nhập</th>
+                <th>Họ và Tên</th>
+                <th>Chức Vụ</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assigned_employee in assigned_employees %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ assigned_employee[1] }}</td>
+                    <td>{{ assigned_employee[2] }}</td>
+                    <td>
+                        {% if assigned_employee[3] == 'manager' %}
+                            Quản Lý
+                        {% else %}
+                            Nhân Viên
+                        {% endif %}
+                    </td>
+                    <td class="table-action">
+                        <a href="{{ url_for('shift.remove_employee_from_shift', shift_id=shift_id, user_id=assigned_employee[0]) }}" class="action-icon">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}Danh Sách Ca Làm Việc{% endblock %}
+
+{% block content %}
+<div class="container">
+        <h1>Thống kê Chấm Công</h1>
+
+        <!-- Biểu đồ tròn cho tháng này -->
+        <div>
+            <h3>Biểu đồ chấm công tháng này</h3>
+            {{ graph_pie|safe }}
+        </div>
+
+        <!-- Biểu đồ cột cho 12 tháng qua -->
+        <div>
+            <h3>Biểu đồ thống kê chấm công 12 tháng qua</h3>
+            {{ graph_bar|safe }}
+        </div>
+    </div>
+
+{% endblock %}

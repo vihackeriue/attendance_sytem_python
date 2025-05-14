@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+
+{% block title %}Lịch Sử Chấm Công{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-2">
+
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Thống Kê Chấm Công của Nhân Viên</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <!-- Thống kê tổng quan -->
+    <div class="row">
+        <!-- Tổng số ca -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tổng số ca</h5>
+                    <p class="card-text"><b>{{ stats.total_shifts }}</b></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Đúng giờ -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Đúng giờ</h5>
+                    <p class="card-text" style="color: green;"><b>{{ stats.present_count }}</b></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trễ -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Đi trễ</h5>
+                    <p class="card-text" style="color: orange;"><b>{{ stats.late_count }}</b></p>
+                </div>
+            </div>
+        </div>
+        <!-- Tiền lương -->
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Tiền lương hiện tại</h5>
+                    <p class="card-text" style="color: orange;"><b>{{ stats.total_salary }} đ</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end row-->
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Lịch sử chấm công của nhân viên</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-centered display table-list" style="width: 100%">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="d-none d-xl-table-cell">STT</th>
+                                    <th class="d-none d-xl-table-cell">Tên Ca Làm Việc</th>
+                                    <th class="d-none d-md-table-cell">Thời gian Check-In</th>
+                                    <th class="d-none d-md-table-cell">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for shift in shifts %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ shift.shift_name }}</td>
+                                    <td>{{ shift.check_in_time }}</td>
+                                    <td>
+                                        {% if shift.status == 'present' %}
+                                        <div class="text-success">Đã điểm danh</div>
+                                        {% elif shift.status == 'late' %}
+                                        <div class="text-warning">Trễ làm</div>
+                                        {% else %}
+                                        <div class="text-danger">Không chấm công</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end card-body-->
+            </div>
+            <!-- end card-->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+{% endblock %}

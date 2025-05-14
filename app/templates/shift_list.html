@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block title %}Danh Sách Ca Làm Việc{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-2">
+    <h2>Danh Sách Ca Làm Việc</h2>
+    
+    <div class="row mb-2">
+        <div class="col-sm-4">
+            <a href="{{ url_for('shift.add_shift') }}" class="btn btn-primary mb-2">
+                <i class="mdi mdi-plus-circle me-2"></i> Thêm Ca Làm Việc
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-centered display table-list" style="width: 100%">
+            <thead class="table-light">
+                <tr>
+                    <th class="d-none d-xl-table-cell">STT</th>
+                    <th class="d-none d-md-table-cell">Tên Ca Làm Việc</th>
+                    <th class="d-none d-md-table-cell">Thời Gian Bắt Đầu</th>
+                    <th class="d-none d-md-table-cell">Thời Gian Kết Thúc</th>
+                    <th style="width: 85px;">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shift in shifts %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ shift[1] }}</td>
+                    <td>{{ shift[2] }}</td>
+                    <td>{{ shift[3] }}</td>
+                    <td class="table-action">
+
+                        <a href="{{ url_for('shift.assign_employee_to_shift', shift_id=shift[0]) }}" class="action-icon" >
+                            <i class="fa-solid fa-users"></i>
+                        </a>
+                        <a href="{{ url_for('shift.delete_shift', shift_id=shift[0]) }}" class="action-icon">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

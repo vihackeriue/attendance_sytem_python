@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block title %}Danh Sách Lương Nhân Viên{% endblock %}
+
+{% block content %}
+    <div class="container-fluid p-2">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Danh sách lương nhân viên tháng {{ month }}/{{ year }}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <!-- start filter section -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <form method="GET" action="{{ url_for('employee.employee_salary') }}">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-4">
+
+                            <select name="month" class="form-control" id="month">
+                                {% for m in range(1, 13) %}
+                                    <option value="{{ m }}" {% if m == month %} selected {% endif %}>Tháng {{ m }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+
+                            <select name="year" class="form-control" id="year">
+                                <option value="{{ year }}" selected>{{ year }}</option>
+                                {% for y in range(2020, 2031) %}
+                                    <option value="{{ y }}" {% if y == year %} selected {% endif %}>{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Lọc</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end filter section -->
+
+        <!-- start pie chart -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thống kê Thanh Toán Lương</h5>
+                        <!-- Embed Plotly Pie Chart -->
+                        <div>{{ chart_html|safe }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end pie chart -->
+
+
+
+        <!-- start table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-centered display table-list" style="width: 100%">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Nhân Viên</th>
+                                        <th>Lương Cơ Bản</th>
+                                        <th>Tổng Lương</th>
+                                        <th>Trạng Thái Thanh Toán</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for employee in employees_salary %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ employee.full_name }}</td>
+                                        <td>{{ employee.salary }}</td>
+                                        <td>{{ employee.total_salary }}</td>
+                                        <td>
+                                            {% if employee.salary_status == 'Paid' %}
+                                                <span class="text-success">Đã thanh toán</span>
+                                            {% else %}
+                                                <form method="GET" action="{{ url_for('employee.employee_salary_detail', employee_id=employee.employee_id) }}">
+                                                    <button type="submit" class="btn btn-primary">Thanh toán</button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end table -->
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %}Thêm Ca Làm Việc{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-2">
+    <h2>Thêm Ca Làm Việc</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3 position-relative">
+            <label for="shift_name" class="form-label">Tên Ca Làm Việc</label>
+            {{ form.shift_name(class="form-control") }}
+        </div>
+
+        <div class="mb-3 position-relative">
+            <label for="start_time" class="form-label">Thời gian bắt đầu</label>
+            {{ form.start_time(class="form-control") }}
+        </div>
+
+        <div class="mb-3 position-relative">
+            <label for="end_time" class="form-label">Thời gian kết thúc</label>
+            {{ form.end_time(class="form-control") }}
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Thêm Ca Làm Việc</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
